@@ -1,0 +1,38 @@
+version: "3.5"
+services:
+  db:
+    hostname: database
+    image: postgres
+    command: "postgres -c shared_buffers=256MB -c fsync=off -c full_page_writes=off -c max_connections=450"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./ddl.sql:/docker-entrypoint-initdb.d/ddl.sql
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: auth-core
+    deploy:
+      resources:
+        limits:
+          cpus: "0.2"
+          memory: "0.3GB"
+
+  api1:
+    build: .
+    command: npm run start
+    volumes:
+      - .:/usr/src/app
+    expose:
+      - "8080"
+    depends_on:
+      - db
+    deploy:
+      resources:
+        limits:
+          cpus: "0.2"
+          memory: "0.3GB"
+networks:
+  default:
+    driver: bridge
+    name: rinha
