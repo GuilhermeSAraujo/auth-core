@@ -23,8 +23,8 @@ services:
     command: npm run start
     volumes:
       - .:/usr/src/app
-    expose:
-      - "8080"
+    ports:
+      - "8080:8080"
     depends_on:
       - db
     deploy:
