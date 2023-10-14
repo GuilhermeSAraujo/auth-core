@@ -1,21 +1,21 @@
 # Auth Core: Simple Authentication System with NestJS
 
-This is a simple authentication system built using NestJS, bcryptjs, jsonwebtoken, and @nestjs/swagger. The purpose of this project is to learn about NestJS and its features. The architecture follows the Ports and Adapters (Hexagonal) pattern.
+This is a simple authentication system built using NestJS, bcryptjs and jsonwebtoken. The purpose of this project is to learn about NestJS and its features. The architecture follows the Ports and Adapters (Hexagonal) pattern.
 
 ## Features
 
-- User registration
-- User authentication (with token generation)
-- Token expiration in 5 minutes
-- Endpoint to list users (requires a valid token)
+- User registration;
+- User authentication (with token generation);
+- Token expiration in 5 minutes;
+- Endpoint to list users (requires a valid token).
 
 ## Technologies
 
-- [NestJS](https://nestjs.com/)
-- [@nestjs/swagger](https://github.com/nestjs/swagger)
-- [bcryptjs](https://www.npmjs.com/package/bcryptjs)
-- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
-- PostgreSQL
+- [NestJS](https://nestjs.com/);
+- [@nestjs/swagger](https://github.com/nestjs/swagger);
+- [bcryptjs](https://www.npmjs.com/package/bcryptjs);
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken);
+- [PostgreSQL]().
 
 ## Architecture
 
@@ -31,27 +31,37 @@ The project uses the Ports and Adapters (also known as Hexagonal) architecture p
 - **bcryptjs**: Used to create password hashes before storing them in the PostgreSQL database.
 - **jsonwebtoken**: Generates JWT tokens based on the user ID (UUID in the database).
 
-## Getting Started
+## Dockerization with Docker Compose
 
-1. Clone the repository
+The entire application has been dockerized using Docker Compose, which allows you to run the app independently and with ease, as long as you have Docker installed on your machine.
+
+This configuration sets up two services: the PostgreSQL database (`db`) and the NestJS API (`api1`). The `db` service uses the official PostgreSQL image and includes a custom configuration for performance tuning. The `api1` service builds the application from the current directory and runs it using `npm run start`.
+
+Both services are connected to a bridge network named `rinha`. The API service depends on the database service, ensuring that the database is up and running before the API starts.
+
+To run the application using Docker Compose, simply execute the following command in the terminal:
+
 ```bash
-git clone https://github.com/yourusername/auth-core.git
+docker-compose up
 ```
 
-2. Install dependencies
+This will build and run both services, making the API accessible at `http://localhost:8080`.
+
+Alternatively, you can use the provided `run.sh` script to manage the Docker Compose setup. This script includes commands to remove any existing containers, shut down the services, and rebuild and start the services:
+
 ```bash
-cd auth-core
-npm install
+./run.sh
 ```
 
-3. Set up your PostgreSQL database and update the configuration in `ormconfig.json`.
+This script executes the following commands:
 
-4. Run the application
 ```bash
-npm run start
+docker compose rm -f
+docker compose down
+docker compose up --build
 ```
 
-5. Access the Swagger UI at `http://localhost:3000/api` to test the API endpoints.
+Running the `run.sh` script ensures that you always have a clean environment when starting the application.
 
 ## License
 
