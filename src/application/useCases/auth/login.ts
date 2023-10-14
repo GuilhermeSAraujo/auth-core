@@ -24,7 +24,7 @@ class Login {
 
     private async findUserByEmail(email: string): Promise<User> {
         const user = await this.userAdapter.findUserByEmail(email);
-
+        
         if (!user) throw new InternalServerErrorException("User not found.");
 
         return user;

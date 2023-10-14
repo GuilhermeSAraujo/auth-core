@@ -9,7 +9,7 @@ import ListUsers from 'src/application/useCases/user/listUsers';
 
 @ApiTags('user')
 @Controller('user')
-export class UserController {
+class UserController {
 	constructor(private readonly createUser: CreateUser, private readonly listUsers: ListUsers) { }
 
 	@Post()
@@ -26,3 +26,5 @@ export class UserController {
 		return await this.listUsers.execute();
 	}
 }
+
+export default UserController;
