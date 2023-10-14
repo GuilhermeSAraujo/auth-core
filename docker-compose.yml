@@ -35,4 +35,4 @@ services:
 networks:
   default:
     driver: bridge
-    name: rinha
+    name: auth-core-network
