@@ -1,6 +1,6 @@
-# Simple Authentication System with NestJS
+# Auth Core: Simple Authentication System with NestJS
 
-This is a simple authentication system built using NestJS, bcryptjs, jsonwebtoken, and @nestjs/swagger. The purpose of this project is to learn about NestJS and its features.
+This is a simple authentication system built using NestJS, bcryptjs, jsonwebtoken, and @nestjs/swagger. The purpose of this project is to learn about NestJS and its features. The architecture follows the Ports and Adapters (Hexagonal) pattern.
 
 ## Features
 
@@ -17,16 +17,30 @@ This is a simple authentication system built using NestJS, bcryptjs, jsonwebtoke
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 - PostgreSQL
 
+## Architecture
+
+The project uses the Ports and Adapters (also known as Hexagonal) architecture pattern. This pattern helps in creating a maintainable and scalable application by separating the core logic from external dependencies and frameworks.
+
+### Modules
+
+- **User Module**: Handles user registration and listing.
+- **Auth Module**: Manages user authentication and token generation.
+
+### Libraries
+
+- **bcryptjs**: Used to create password hashes before storing them in the PostgreSQL database.
+- **jsonwebtoken**: Generates JWT tokens based on the user ID (UUID in the database).
+
 ## Getting Started
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/simple-authentication-system.git
+git clone https://github.com/yourusername/auth-core.git
 ```
 
 2. Install dependencies
 ```bash
-cd simple-authentication-system
+cd auth-core
 npm install
 ```
 
@@ -38,22 +52,6 @@ npm run start
 ```
 
 5. Access the Swagger UI at `http://localhost:3000/api` to test the API endpoints.
-
-## Project Structure
-
-The project uses NestJS's module segregation, which allows for direct dependency injection in independent modules. This helps keep the code organized and maintainable.
-
-The syntax used in NestJS is similar to .NET, with decorators and a robust dependency injection system.
-
-### Modules
-
-- **User Module**: Handles user registration and listing.
-- **Auth Module**: Manages user authentication and token generation.
-
-### Libraries
-
-- **bcryptjs**: Used to create password hashes before storing them in the PostgreSQL database.
-- **jsonwebtoken**: Generates JWT tokens based on the user ID (UUID in the database).
 
 ## License
 
