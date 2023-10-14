@@ -1,9 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
+import CreateUserInput from "src/application/ports/user/createUserInput";
 
-class CreateUserRequest{
+class CreateUserRequest {
     @ApiProperty()
     email: string;
-    
+
     @ApiProperty()
     password: string;
 };
