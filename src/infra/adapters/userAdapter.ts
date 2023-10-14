@@ -16,10 +16,13 @@ class UserAdapter {
     };
 
     public async create(request: CreateUserRequest): Promise<void> {
-        console.log('request', request);
         await pool.query(`
             INSERT INTO user_account (email, password)
             VALUES ($1, $2)`, [request.email, request.password]);
+    }
+
+    public async list() : Promise<string[]> {
+        return (await pool.query(`select id, email from user_account`)).rows;
     }
 };
 

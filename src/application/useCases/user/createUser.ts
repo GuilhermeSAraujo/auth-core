@@ -1,6 +1,7 @@
-import { BadRequestException, Injectable, InternalServerErrorException, UnprocessableEntityException } from "@nestjs/common";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import CreateUserInput from "src/application/ports/user/createUserInput";
 import UserAdapter from "src/infra/adapters/userAdapter";
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 class CreateUser {
@@ -11,7 +12,9 @@ class CreateUser {
 
         await this.verifyUserAlreadyExists(user.email);
 
-        await this.userAdapter.create(user.convertToRequest());
+        const passwordHash = await this.createPasswordHash(user.password);
+
+        await this.userAdapter.create(user.convertToRequest(passwordHash));
     }
 
     private async verifyUserAlreadyExists(email: string): Promise<void> {
@@ -19,6 +22,13 @@ class CreateUser {
 
         if (result) throw new InternalServerErrorException("User already exists");
     };
+
+    private async createPasswordHash(password: string) {
+        const salt = await bcrypt.genSalt();
+        const hash = await bcrypt.hash(password, salt);
+
+        return hash;
+    }
 };
 
 export default CreateUser;
