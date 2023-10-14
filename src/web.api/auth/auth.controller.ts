@@ -12,7 +12,7 @@ export class AuthController {
 
     @Post()
     @HttpCode(200)
-    async loginUser(@Body() request: LoginRequest){
+    async loginUser(@Body() request: LoginRequest): Promise<LoginOutput> {
         return await this.login.execute(new LoginInput(request.email, request.password));
     }
 }
