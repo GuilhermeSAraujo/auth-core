@@ -37,7 +37,7 @@ The entire application has been dockerized using Docker Compose, which allows yo
 
 This configuration sets up two services: the PostgreSQL database (`db`) and the NestJS API (`api1`). The `db` service uses the official PostgreSQL image and includes a custom configuration for performance tuning. The `api1` service builds the application from the current directory and runs it using `npm run start`.
 
-Both services are connected to a bridge network named `rinha`. The API service depends on the database service, ensuring that the database is up and running before the API starts.
+Both services are connected to a bridge network named `auth-core-network`. The API service depends on the database service, ensuring that the database is up and running before the API starts.
 
 To run the application using Docker Compose, simply execute the following command in the terminal:
 
@@ -50,7 +50,7 @@ This will build and run both services, making the API accessible at `http://loca
 Alternatively, you can use the provided `run.sh` script to manage the Docker Compose setup. This script includes commands to remove any existing containers, shut down the services, and rebuild and start the services:
 
 ```bash
-./run.sh
+bash run.sh
 ```
 
 This script executes the following commands:
